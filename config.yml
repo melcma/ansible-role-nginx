@@ -1,0 +1,13 @@
+---
+- name: melcma.nginx Copy nginx global config file to /etc/nginx/nginx.conf
+  become: yes
+  copy:
+    src: files/nginx.conf
+    dest: /etc/nginx/nginx.conf
+
+- name: melcma.nginx Copy nginx virtual host files to /etc/nginx/sites-enabled/
+  become: yes
+  copy:
+    src: files/vhosts/{{ item }}
+    dest: /etc/nginx/sites-enabled/{{ item }}
+  with_items: "{{ vhosts }}"
